@@ -1,0 +1,35 @@
+name: arb-refresh-deploy
+# Refresh threads.json + catalogue.json, commit, deploy to Vercel.
+# Secrets live in repo Settings -> Actions (never in this file):
+#   VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
+# Triggers stay schedule/dispatch ONLY — never add pull_request
+# (forked runs must never see secrets or deploy).
+on:
+  schedule:
+    - cron: "17 */2 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  refresh-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/arb-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm run refresh:threads
+      - run: npm run update
+      - run: |
+          git config user.name "arb-refresh"
+          git config user.email "arb-refresh@users.noreply.github.com"
+          git add src/arb-api/threads.json src/arb-api/catalogue.json
+          git diff --cached --quiet || git commit -m "refresh $(date -u +%FT%TZ)"
+          git push
+      - run: npx -y vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
