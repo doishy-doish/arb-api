@@ -1,0 +1,1 @@
+{"functions": {"api/cheapest.js": {"memory": 128, "maxDuration": 10}, "api/threads.js": {"memory": 128, "maxDuration": 10}}, "headers": [{"source": "/api/(.*)", "headers": [{"key": "Access-Control-Allow-Origin", "value": "*"}]}]}
