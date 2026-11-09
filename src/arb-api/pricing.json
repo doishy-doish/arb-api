@@ -1,0 +1,29 @@
+{
+ "currency": "USD",
+ "model": {
+  "assumptions": "niche agent-API; bot 5-min poller = 8,640 calls/mo; human 100-200 calls/mo; elastic e=1.2 (free CoinGecko/self-serve alternatives) and inelastic e=0.8 swept; funnel 20-200 bots + 10-120 humans across pessimistic/base/optimistic",
+  "evidence": "scratch/arb/pricing-model.txt (inelastic artifact: linear fixed-volume model) + scratch/arb/pricing-model2.txt (elastic: revenue strictly decreasing in price $0.001->$0.03 in BOTH e=1.2 and e=0.8; all monthly tariffs underperform pure per-call at floor)",
+  "flatMaximum": "revenue gap $0.002->$0.003 is small in every scenario while unit margin is 50% higher and further above settle variance: $0.003 is the robust pick, not a knife-edge",
+  "floor": "x402 settle (Base gas + facilitator) ~$0.001-0.002 per settlement; below $0.002 the rail eats the payment",
+  "honesty": "pricing harvests demand, it does not create it. All revenue figures assume a funnel (Moltbook/RapidAPI/OpenClaw per README) that does not exist yet. No funnel = $0 at any price.",
+  "valueCheck": "S $100-float harvest +$1.32/thread, RENDER $87 +$1.29: a $0.003 call is 0.2% of one harvest; one avoided APE-style trap at $100 saves $100 = 33,333 calls. Price is fractions of value."
+ },
+ "monthly": {
+  "includedCalls": 10000,
+  "note": "operator-billed (not x402 per-call); NOT implemented - needs operator billing + payTo wallet. Ship per-call first.",
+  "overageUsd": 0.003,
+  "usd": 19
+ },
+ "perCall": {
+  "usd": 0.003,
+  "x402Asset": "USDC (6 decimals)",
+  "x402NetworkNote": "x402.js currently points at Base Sepolia TESTNET (eip155:84532) - real money needs mainnet (eip155:8453) + operator payTo address at deploy",
+  "x402Units": "3000"
+ },
+ "updated": "2026-11-09",
+ "version": 1,
+ "free": {
+  "callsPerDay": 100,
+  "note": "free 100 calls/day, no key (matches RapidAPI norm; the funnel, not the product)"
+ }
+}
