@@ -1,0 +1,1 @@
+{"name": "arb-cheapest", "version": "1.0.0", "private": true, "type": "commonjs", "scripts": {"update": "node update.mjs", "refresh:threads": "node scripts/refresh-threads.mjs", "dev": "npx vercel dev", "deploy": "npx vercel --prod"}}
