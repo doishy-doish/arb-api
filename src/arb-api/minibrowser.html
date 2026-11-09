@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Venue Minibrowser — arb discovery (K-free)</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 16px; max-width: 1100px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.sub { color: #555; margin: 0 0 12px; font-size: 13px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+  input[type=text] { flex: 1 1 320px; padding: 8px; font-size: 14px; }
+  button { padding: 8px 12px; font-size: 14px; cursor: pointer; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 10px; }
+  th, td { border: 1px solid #ddd; padding: 5px 7px; text-align: left; }
+  th { background: #f4f4f4; position: sticky; top: 0; }
+  #status { font-size: 13px; color: #333; min-height: 20px; margin-top: 8px; }
+  .mono { font-family: ui-monospace, monospace; font-size: 12px; }
+  #queue { background: #fafafa; border: 1px solid #ddd; padding: 8px; font-size: 12px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<h1>Venue Minibrowser <span style="font-weight:normal;font-size:13px">(K-free discovery — no keys, no logins)</span></h1>
+<p class="sub">Searches public venue lists (CoinGecko exchanges, CCXT support table, DuckDuckGo, GitHub repos) through
+<code>/api/minibrowse</code> when deployed, else direct + superFetch fallback. Tick ➕ to stage a venue into the sweep queue, then export JSON into the web pipeline.</p>
+<div class="row">
+  <input id="q" type="text" value="new crypto exchange 2025 spot trading" spellcheck="false">
+</div>
+<div class="row">
+  <button data-mode="cg_exchanges" data-page="1">CG exchanges p1 (top)</button>
+  <button data-mode="cg_exchanges" data-page="2">CG p2 (long tail)</button>
+  <button id="btnNew">New venues '25/'26 (DDG)</button>
+  <button id="btnOld">Old venues (DDG)</button>
+  <button id="btnCcxt">CCXT support check</button>
+  <button id="btnGh">GitHub exchange repos</button>
+</div>
+<div class="row">
+  <button id="btnExport">Export sweep queue (JSON)</button>
+  <button id="btnClear">Clear queue</button>
+  <span class="mono" id="ep"></span>
+</div>
+<div id="status">Ready. Endpoint: <span class="mono" id="ep2"></span></div>
+<div id="out"></div>
+<h3>Sweep queue (<span id="qn">0</span>)</h3>
+<div id="queue">[]</div>
+<script>
+(function () {
+  var API = location.pathname.indexOf("/api/") === 0 ? "" : "";
+  // deployed Vercel base = same origin /api/minibrowse; local file:// or preview = direct upstream
+  var endpoint = (location.origin.indexOf("http") === 0 && !location.host.match(/perchance|localhost|127\./))
+    ? location.origin + "/api/minibrowse" : "/api/minibrowse";
+  document.getElementById("ep").textContent = endpoint;
+  document.getElementById("ep2").textContent = endpoint;
+  var queue = [];
+  try { queue = JSON.parse(localStorage.getItem("mbQueue") || "[]"); } catch (e) { queue = []; }
+  function saveQ() {
+    localStorage.setItem("mbQueue", JSON.stringify(queue));
+    document.getElementById("qn").textContent = queue.length;
+    document.getElementById("queue").textContent = JSON.stringify(queue, null, 1);
+  }
+  saveQ();
+  function stage(r) {
+    if (queue.some(function (x) { return x.id === r.id || x.url === r.url; })) return;
+    queue.push(r); saveQ();
+  }
+  function setStatus(s) { document.getElementById("status").textContent = s; }
+  function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+  function call(mode, q, page) {
+    setStatus("Loading " + mode + " …");
+    var url = endpoint + "?mode=" + encodeURIComponent(mode)
+      + (q ? "&q=" + encodeURIComponent(q) : "") + (page ? "&page=" + page : "");
+    // superFetch lane (perchance) if present, else plain fetch (works when deployed, CORS *)
+    var fetcher = (window.root && window.root.superFetch) ? window.root.superFetch.bind(window.root) : fetch;
+    return (fetcher(url).then ? fetcher(url) : Promise.resolve(fetcher(url))).then(function (r) {
+      return (r && r.json) ? r.json() : r;
+    }).then(function (j) { render(mode, j); })
+      .catch(function (e) { setStatus("Failed (endpoint not deployed? use Export after local sweep): " + String(e).slice(0, 160)); });
+  }
+  function render(mode, j) {
+    if (!j || j.error) { setStatus("Upstream error: " + ((j && j.error) || "empty")); return; }
+    setStatus(mode + ": " + (j.count != null ? j.count : (j.rows ? j.rows.length : (j.links ? j.links.length : 0))) + " results.");
+    var h = "";
+    if (j.rows) {
+      h += "<table><tr><th></th><th>venue</th><th>trust</th><th>est</th><th>country</th><th>24h BTC</th><th>link</th></tr>";
+      j.rows.forEach(function (r, i) {
+        h += "<tr><td><button data-i='" + i + "'>+</button></td><td>" + esc(r.name || r.repo || r.id)
+          + "</td><td>" + esc(r.trust != null ? r.trust : (r.stars != null ? r.stars : ""))
+          + "</td><td>" + esc(r.year || r.updated || "") + "</td><td>" + esc(r.country || "")
+          + "</td><td>" + esc(r.volBtc != null ? Math.round(r.volBtc) : "") + "</td><td><a href='" + esc(r.url) + "' target='_blank' rel='noopener'>open</a></td></tr>";
+      });
+      h += "</table>";
+      document.getElementById("out").innerHTML = h;
+      Array.prototype.forEach.call(document.querySelectorAll("#out button"), function (b) {
+        b.onclick = function () {
+          var r = j.rows[+b.getAttribute("data-i")];
+          stage({ id: r.id || r.repo, name: r.name || r.repo, trust: r.trust, year: r.year, country: r.country, volBtc: r.volBtc, url: r.url, at: new Date().toISOString() });
+        };
+      });
+    } else if (j.links) {
+      h = "<table><tr><th></th><th>link</th></tr>";
+      j.links.forEach(function (u, i) {
+        var host = ""; try { host = new URL(u).hostname; } catch (e) {}
+        h += "<tr><td><button data-i='" + i + "'>+</button></td><td><a href='" + esc(u) + "' target='_blank' rel='noopener'>" + esc(host) + "</a> <span class='mono'>" + esc(u.slice(0, 90)) + "</span></td></tr>";
+      });
+      h += "</table>";
+      document.getElementById("out").innerHTML = h;
+      Array.prototype.forEach.call(document.querySelectorAll("#out button"), function (b) {
+        b.onclick = function () {
+          var u = j.links[+b.getAttribute("data-i")]; var host = u;
+          try { host = new URL(u).hostname; } catch (e) {}
+          stage({ id: host, name: host, url: u, via: "ddg:" + (document.getElementById("q").value.slice(0, 60)), at: new Date().toISOString() });
+        };
+      });
+    } else if (j.probe) {
+      h = "<table><tr><th>token</th><th>ccxt?</th></tr>";
+      j.probe.forEach(function (p) { h += "<tr><td>" + esc(p.t) + "</td><td>" + (p.supported ? "YES" : "no") + "</td></tr>"; });
+      h += "</table><p class='mono'>ccxt list: " + j.ccxtCount + " venues</p>";
+      document.getElementById("out").innerHTML = h;
+    } else {
+      document.getElementById("out").innerHTML = "<pre>" + esc(JSON.stringify(j).slice(0, 2000)) + "</pre>";
+    }
+  }
+  document.querySelectorAll("button[data-mode]").forEach(function (b) {
+    b.onclick = function () { call(b.getAttribute("data-mode"), "", b.getAttribute("data-page")); };
+  });
+  document.getElementById("btnNew").onclick = function () { call("ddg", document.getElementById("q").value || "new crypto exchange 2025 spot trading"); };
+  document.getElementById("btnOld").onclick = function () { call("ddg", "oldest crypto exchange 2013 2014 spot BTC ETH"); };
+  document.getElementById("btnCcxt").onclick = function () { call("ccxt_readme", document.getElementById("q").value); };
+  document.getElementById("btnGh").onclick = function () { call("github", "crypto exchange spot trading api"); };
+  document.getElementById("btnExport").onclick = function () {
+    var blob = new Blob([JSON.stringify(queue, null, 1)], { type: "application/json" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "sweep-queue.json"; a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
+  };
+  document.getElementById("btnClear").onclick = function () { queue = []; saveQ(); };
+})();
+</script>
+</body>
+</html>
