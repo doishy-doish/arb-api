@@ -1,0 +1,146 @@
+{
+ "at": "2026-11-10T08:12:30.912Z",
+ "sharekhanDP": "CONFIRMED Nil on sale via Sharekhan — official pricing page + CDSL TariffPlanCDSL.pdf (Caesar-decoded: 'SALES THROUGH SHAREKHAN NIL'; off-market 0.03% min Rs 30)",
+ "legA": {
+  "mode": "PILOT-18-sessions",
+  "N": 1,
+  "winRate": 100,
+  "expectancyPctTurnover": 0.042,
+  "expectancyRsPerTrade": 0.21,
+  "totalNetRs": 0.21,
+  "equityEnd": 100.21,
+  "maxDDpct": 0,
+  "targets": 0,
+  "stops": 0,
+  "times": 1,
+  "verdict": "INCONCLUSIVE-SAMPLE-STARVED",
+  "sessions": 17,
+  "note": "PILOT only: Yahoo 1m capped at last-30d for any caller (422 beyond); GH-runner egress hard-banned (5s 4x403 signature). Trigger too tight for N>=120 by construction."
+ },
+ "legB": {
+  "summary": {
+   "N": 1131,
+   "winPct": 68.2,
+   "netRs": -1484.16,
+   "netRsDP1475": -18166.41
+  },
+  "byStock": {
+   "IDEA": {
+    "N": 423,
+    "winPct": 69.3,
+    "netRs": -632.85,
+    "netRsDP1475": -6872.1
+   },
+   "YESBANK": {
+    "N": 301,
+    "winPct": 71.4,
+    "netRs": -165.88,
+    "netRsDP1475": -4605.63
+   },
+   "SUZLON": {
+    "N": 407,
+    "winPct": 64.6,
+    "netRs": -685.41,
+    "netRsDP1475": -6688.66
+   }
+  },
+  "rules": "dip<-3% vs 20DMA, vol20d-median>1M, price>=2; next-open entry Q=floor(100/P); +3%/-10%(stop-first)/20-session exit; Sharekhan 0.30%/side + STT 0.1% sell + stamp 0.003% buy + NSE 0.00325%/side, DP=Rs0 (counterfactual DP=14.75)"
+ },
+ "bracketVariants": [
+  {
+   "+3%/-10%": {
+    "N": 1131,
+    "win": 68.2,
+    "net": -1484
+   }
+  },
+  {
+   "+9%/-3%": {
+    "N": 1131,
+    "win": 21.4,
+    "net": -1173
+   }
+  },
+  {
+   "+6%/-4%": {
+    "N": 1131,
+    "win": 34.5,
+    "net": -1192
+   }
+  },
+  {
+   "+3%/-3%": {
+    "N": 1131,
+    "win": 41.3,
+    "net": -1201
+   }
+  },
+  {
+   "+12%/-3%": {
+    "N": 1131,
+    "win": 18.3,
+    "net": -1144
+   }
+  },
+  {
+   "+6%/-6%": {
+    "N": 1131,
+    "win": 44.8,
+    "net": -1166
+   }
+  }
+ ],
+ "triggerGauge": [
+  {
+   "-1.75σ/RVOL1.5": {
+    "perDay": 0.06,
+    "implN250": 15
+   }
+  },
+  {
+   "-1.25σ/1.5": {
+    "perDay": 0.06,
+    "implN250": 15
+   }
+  },
+  {
+   "-1.0σ/1.2": {
+    "perDay": 0.12,
+    "implN250": 29
+   }
+  },
+  {
+   "-1.0σ/1.0": {
+    "perDay": 0.12,
+    "implN250": 29
+   }
+  },
+  {
+   "-0.75σ/1.0": {
+    "perDay": 0.18,
+    "implN250": 44
+   }
+  }
+ ],
+ "verdict": "DP door REAL, both engines KILLED for cause (delivery: no edge at any bracket; GMR: untestable K-free + trigger can't reach N>=120). Next: broker-API data (Dhan/Upstox key) + recalibrated trigger.",
+ "coverage": {
+  "niftySessions": 17,
+  "perStock": {
+   "TATASTEEL": 17,
+   "COALINDIA": 17,
+   "BEL": 17,
+   "ONGC": 17,
+   "PNB": 17,
+   "IOC": 17,
+   "ETERNAL": 15,
+   "NTPC": 17,
+   "POWERGRID": 17,
+   "NHPC": 17,
+   "BANKBARODA": 17,
+   "GAIL": 17,
+   "VEDL": 17,
+   "NMDC": 17,
+   "TATAPOWER": 17
+  }
+ }
+}
