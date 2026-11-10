@@ -10,28 +10,35 @@ const fail = (m) => { console.error("EQ ABORT: " + m); process.exit(1); };
 const UA = { "user-agent": "Mozilla/5.0 (X11; Linux x86_64) inr-eq-gmr/1.0" };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // Yahoo crumb flow (query1 401s without cookie+crumb since 2024 tightening).
-let YCK = "", CRUMB = "";
+// Best-effort: datacenter egress sometimes blocks fc.yahoo.com; fall back to
+// cookieless requests (enforcement is inconsistent) rather than dying instantly.
+let YCK = "", CRUMB = "", YMODE = "none";
 async function yahooInit() {
-  const r = await fetch("https://fc.yahoo.com", { headers: UA });
-  const sc = r.headers.getSetCookie ? r.headers.getSetCookie() : [r.headers.get("set-cookie")];
-  YCK = sc.filter(Boolean).map((c) => c.split(";")[0]).join("; ");
-  const c = await fetch("https://query1.finance.yahoo.com/v1/test/getcrumb", { headers: { ...UA, Cookie: YCK } });
-  if (!c.ok) throw new Error("crumb HTTP " + c.status);
-  CRUMB = (await c.text()).trim();
-  if (!CRUMB || /html/i.test(CRUMB)) throw new Error("crumb body invalid");
+  try {
+    const r = await fetch("https://fc.yahoo.com", { headers: UA });
+    const sc = r.headers.getSetCookie ? r.headers.getSetCookie() : [r.headers.get("set-cookie")];
+    YCK = sc.filter(Boolean).map((c) => c.split(";")[0]).join("; ");
+    const c = await fetch("https://query1.finance.yahoo.com/v1/test/getcrumb", { headers: { ...UA, Cookie: YCK } });
+    if (!c.ok) throw new Error("crumb HTTP " + c.status);
+    CRUMB = (await c.text()).trim();
+    if (!CRUMB || /html/i.test(CRUMB)) throw new Error("crumb body invalid");
+    YMODE = "crumb";
+  } catch (e) { console.log("crumb flow failed (" + String(e).slice(0, 120) + ") — continuing cookieless"); }
 }
 async function get(url, tries = 4) {
   for (let a = 0; a < tries; a++) {
     try {
       const sep = url.includes("?") ? "&" : "?";
-      const r = await fetch(url + sep + "crumb=" + CRUMB, { headers: { ...UA, Cookie: YCK } });
+      const full = CRUMB ? url + sep + "crumb=" + CRUMB : url;
+      const hdr = CRUMB ? { ...UA, Cookie: YCK } : UA;
+      const r = await fetch(full, { headers: hdr });
       if (r.ok) return await r.json();
-      if (r.status === 401 && a < tries - 1) { await yahooInit(); continue; } // crumb expired
+      if (r.status === 401 && CRUMB && a < tries - 1) { await yahooInit(); continue; } // crumb expired
       if (r.status === 429) await sleep(4000);
       else await sleep(1200);
     } catch (e) { await sleep(1500); }
   }
-  throw new Error("fetch failed " + url);
+  throw new Error("fetch failed (" + YMODE + ") " + url);
 }
 const IST = 19800;
 const dayKey = (t) => new Date((t + IST) * 1000).toISOString().slice(0, 10);
