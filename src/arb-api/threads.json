@@ -1,5 +1,13 @@
 {
- "disclaimer": "Snapshot quotes at snapshot-time, not executable depth. All nets are ex-transfer (withdrawal/network fee NOT included) except where noted. CEX minimums and no-KYC tiers block small sizes - see gates. Never send funds on the strength of this file alone: re-check the live book, doors, and fees at execution. Traps and toys excluded, never silently listed as tradable.",
+ "updated": "2026-11-10T06:47:27.829Z",
+ "source": "auto-refresh 2026-11-10T06:47Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
+ "gasAssumptions": {
+  "bsc": 0.05,
+  "note": "CEX withdrawal/network fees are NOT in nets - verify per-coin fee at execution; $1 NonKYC USDT flat alone is 20% at $5, 2% at $50, 1% at $100.",
+  "solana": 0.01
+ },
+ "threads": [],
+ "killedCount": 14,
  "excluded": {
   "fossils": [
    "GLC/TRC intra-NonKYC +104% on vol-0 books",
@@ -22,163 +30,17 @@
   ],
   "decayed": [
    "XRP NonKYC->KoinBX verified +18.6bp, now -104.5bp on refresh",
-   "PYTH KB->NK +32bp ticker dies under VWAP (avg 0.06598 vs 0.06506 top)"
+   "PYTH KB->NK +32bp ticker dies under VWAP (avg 0.06598 vs 0.06506 top)",
+   "render-ix-nk decayed to -72bp",
+   "s-ix-nk decayed to -3bp",
+   "trump-kb-nk decayed to -99bp",
+   "trump-dex-nk decayed to -59bp",
+   "crv-ix-nk decayed to -71bp"
   ],
   "noExitMicros": [
    "Dex-Trade 11 micro-caps, no shared assets with any deep venue",
    "Latoken vol24h=0 across sampled books"
   ]
  },
- "gasAssumptions": {
-  "bsc": 0.05,
-  "note": "CEX withdrawal/network fees are NOT in nets - verify per-coin fee at execution; $1 NonKYC USDT flat alone is 20% at $5, 2% at $50, 1% at $100.",
-  "solana": 0.01
- },
- "killedCount": 14,
- "source": "auto-refresh-vintage 2026-11-09T23:33Z: single-vintage recompute, all sizes from live books; fail-closed on fetch/parse error",
- "threads": [
-  {
-   "buy": "Icrypex RENDER/USDT ask 1.591 (book VWAP)",
-   "capUSD": 87,
-   "capNote": "5% of $1,747 NonKYC book; Icrypex top holds $289 @1.596",
-   "dir": "IX->NK",
-   "doors": {
-    "ixDeposit": true,
-    "ixWithdraw": true,
-    "nkDepositAssumedOpen": "UNVERIFIED - confirm before sizing"
-   },
-   "edgeBp": 180,
-   "edgeNote": "ticker-edge net of 0.35% Icrypex taker + 0.2% NonKYC taker, ex-transfer; sized nets use live book top 1.591x78.8 (~$125 holds $87 fully)",
-   "id": "render-ix-nk",
-   "minGate": "20 RENDER (~$32) Icrypex minWd - blocks $5 and $10",
-   "sell": "NonKYC RENDER/USDT bid 1.6286",
-   "sizes": {
-    "50": {
-     "in": 50,
-     "net": "+0.68"
-    },
-    "87": {
-     "in": 87,
-     "net": "+1.16"
-    }
-   },
-   "transferFee": "UNKNOWN - RENDER network (ERC20 $2-5 kills $87; Solana $0.01 survives). Verify before sizing."
-  },
-  {
-   "buy": "Icrypex S/USDT ask 0.0372 (book VWAP)",
-   "capUSD": 190,
-   "capNote": "5% of $3,876 NonKYC book; Icrypex top holds $4,854 @0.0376",
-   "dir": "IX->NK",
-   "doors": {
-    "ixDeposit": true,
-    "ixWithdraw": true,
-    "nkDepositAssumedOpen": "UNVERIFIED - confirm before sizing"
-   },
-   "edgeBp": 159,
-   "edgeNote": "net of 0.35% + 0.2% takers, ex-transfer",
-   "id": "s-ix-nk",
-   "minGate": "250 S (~$9.30) Icrypex minWd - blocks $5",
-   "sell": "NonKYC S/USDT bid 0.038000",
-   "sizes": {
-    "10": {
-     "in": 10,
-     "net": "+0.16"
-    },
-    "50": {
-     "in": 50,
-     "net": "+0.79"
-    },
-    "100": {
-     "in": 100,
-     "net": "+1.59"
-    }
-   },
-   "transferFee": "UNKNOWN - Sonic-chain fee likely $0.01-0.50. Verify before sizing."
-  },
-  {
-   "buy": "KoinBX TRUMP/USDT ask 1.111 (book VWAP)",
-   "capUSD": 100,
-   "capNote": "VWAP 1.1157 at $100; NonKYC book $7,311",
-   "dir": "KB->NK",
-   "doors": {
-    "kbxDeposit": true,
-    "kbxWithdraw": true,
-    "nkDepositAssumedOpen": "UNVERIFIED - confirm before sizing"
-   },
-   "edgeBp": 117,
-   "edgeNote": "net of 0.25% KoinBX taker + 0.2% NonKYC taker, ex-transfer",
-   "id": "trump-kb-nk",
-   "minGate": "8.87 TRUMP (~$9.90) KoinBX minWd - blocks $5",
-   "sell": "NonKYC TRUMP/USDT bid 1.1291",
-   "sizes": {
-    "50": {
-     "in": 50,
-     "net": "+0.53"
-    },
-    "100": {
-     "in": 100,
-     "net": "+1.03"
-    }
-   },
-   "transferFee": "UNKNOWN - TRUMP Solana transfer ~$0.01 expected. Verify before sizing."
-  },
-  {
-   "buy": "Solana DEX TRUMP/USDC ~1.108810115",
-   "capUSD": 100,
-   "capNote": "pool impact <0.01% at $100",
-   "dir": "DEX->NK",
-   "doors": {
-    "nkDepositActive": true,
-    "nkDepositMin": "UNKNOWN - confirm dust acceptance before sizing"
-   },
-   "edgeBp": 132,
-   "edgeNote": "net of ~0.3% swap + $0.01 Solana gas x2 + 0.2% NonKYC taker; funds STAY on NonKYC (no $1 USDT withdrawal in stay-nets)",
-   "id": "trump-dex-nk",
-   "minGate": "none known - dust-friendly Solana side",
-   "sell": "NonKYC TRUMP/USDT bid 1.1291",
-   "sizes": {
-    "5": {
-     "stayNet": "+0.06",
-     "withdrawNet": "-0.94"
-    },
-    "50": {
-     "stayNet": "+0.65",
-     "withdrawNet": "-0.35"
-    },
-    "100": {
-     "stayNet": "+1.31",
-     "withdrawNet": "+0.31"
-    }
-   },
-   "transferFee": "$0.01 Solana deposit, included in nets. $1 NonKYC USDT withdrawal shown separately - kills $5-100 if funds must leave."
-  },
-  {
-   "buy": "Icrypex CRV/USDT ask 0.259 (book VWAP)",
-   "capUSD": 77,
-   "capNote": "5% of $1,554 NonKYC book",
-   "dir": "IX->NK",
-   "doors": {
-    "ixDeposit": true,
-    "ixWithdraw": true,
-    "nkDepositAssumedOpen": "UNVERIFIED"
-   },
-   "edgeBp": 64,
-   "edgeNote": "net of takers, ex-transfer. Book VWAP NOT checked - verify before sizing.",
-   "id": "crv-ix-nk",
-   "minGate": "195 CRV (~$51) Icrypex minWd - blocks $5-50",
-   "sell": "NonKYC CRV/USDT bid 0.26211",
-   "sizes": {
-    "50": {
-     "in": 50,
-     "net": "+0.32"
-    },
-    "100": {
-     "in": 100,
-     "net": "+0.64"
-    }
-   },
-   "transferFee": "UNKNOWN. Verify before sizing."
-  }
- ],
- "updated": "2026-11-09T23:33:34.435Z"
+ "disclaimer": "Snapshot quotes at snapshot-time, not executable depth. All nets are ex-transfer (withdrawal/network fee NOT included) except where noted. CEX minimums and no-KYC tiers block small sizes - see gates. Never send funds on the strength of this file alone: re-check the live book, doors, and fees at execution. Traps and toys excluded, never silently listed as tradable."
 }
