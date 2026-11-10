@@ -12,7 +12,7 @@ function normalize(v, fx) {
   const conv = inr ? fx.USDINR : 1;
   return {
     id: v.id, name: v.name, kyc: v.kyc, trap: !!v.trap,
-    ask: v.ask / conv, bid: (v.bid ?? v.ask) / conv,
+    ask: v.ask == null ? null : v.ask / conv, bid: (v.bid ?? v.ask) / conv,
     feeRate: v.feeRate, withdrawFee: v.withdrawFee ?? 0,
     tds: v.tds ?? 0, url: v.url, note: v.note
   };
