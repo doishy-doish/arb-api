@@ -32,8 +32,10 @@ node -e "const h=require('./api/cheapest.js');h({query:{size:'1000'}},{setHeader
   $0.003 overage. Ship per-call first.
 - Honesty clause: pricing harvests demand, it does not create it. No funnel
   (Moltbook/RapidAPI/OpenClaw listings below) = $0 at any price.
-- Real-money note: `src/x402/x402.js` currently points at Base Sepolia TESTNET —
-  mainnet (eip155:8453) + operator payTo address required at deploy.
+- Real-money note: `/api/threads` carries an x402 toll on Base mainnet (eip155:8453,
+  USDC 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA4ACd9, $0.003 = 3000 units). It arms when
+  the operator sets `PAY_TO` (Base wallet) on the Vercel project — until then the
+  endpoint serves the free funnel. Set it in Vercel dashboard → arb-api → Settings → Environment Variables.
 
 1. **x402 Bazaar** — wrap `/api/threads` (and `/api/cheapest`) with the existing paywall in
    `src/x402/` (same `x402.js` helpers, price $0.003 USDC/call per pricing above). Agents pay
