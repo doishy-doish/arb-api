@@ -17,7 +17,7 @@
  "perCall": {
   "usd": 0.003,
   "x402Asset": "USDC (6 decimals)",
-  "x402NetworkNote": "x402.js currently points at Base Sepolia TESTNET (eip155:84532) - real money needs mainnet (eip155:8453) + operator payTo address at deploy",
+  "x402NetworkNote": "Base mainnet (eip155:8453), USDC 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA4ACd9, $0.003 = 3000 units; toll arms when operator sets PAY_TO env on the Vercel project (free funnel while unset)",
   "x402Units": "3000"
  },
  "updated": "2026-11-09",
