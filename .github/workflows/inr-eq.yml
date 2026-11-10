@@ -1,0 +1,27 @@
+name: inr-eq-gmr
+# India ₹100 equities verification: intraday GMR backtest (Leg A) + sub-₹100
+# delivery backtest with Sharekhan ₹0 DP (Leg B). Yahoo Finance, no keys.
+# Dispatch-only: never schedule, never pull_request (manual runs only).
+# Fail-closed: script exits 1 on coverage failure -> commit step never runs.
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/arb-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/inr-eq-gmr.mjs
+      - run: |
+          git config user.name "inr-eq-gmr"
+          git config user.email "inr-eq-gmr@users.noreply.github.com"
+          git add src/arb-api/inr-eq/results.json
+          git diff --cached --quiet || git commit -m "inr-eq-gmr $(date -u +%FT%TZ)"
+          git push
