@@ -1,1 +1,119 @@
-{"asset":"USDC","quote":"USDT","updated":"2026-11-09T21:30:00Z","fx":{"USDINR":94.047485},"venues":[{"id":"nonkyc","name":"NonKYC.io","kyc":false,"ask":1.0,"bid":0.99754,"feeRate":0.002,"withdrawFee":1.0,"withdrawNet":"TRC20/SOL/BEP20","volume24":3286106.97,"url":"https://nonkyc.io/market/USDC_USDT"},{"id":"binance","name":"Binance","kyc":true,"ask":1.00097,"bid":1.00097,"feeRate":0.001,"withdrawFee":2.0,"withdrawNet":"multi","volume24":1524071682.0,"url":"https://www.binance.com/en/trade/USDC_USDT"},{"id":"bybit","name":"Bybit","kyc":true,"ask":1.0009,"bid":1.0009,"feeRate":0.001,"withdrawFee":2.0,"withdrawNet":"multi","volume24":240912224.0,"url":"https://www.bybit.com/trade/spot/USDC/USDT"},{"id":"okx","name":"OKX","kyc":true,"ask":1.00096,"bid":1.00096,"feeRate":0.001,"withdrawFee":2.0,"withdrawNet":"multi","volume24":218326039.0,"url":"https://www.okx.com/trade-spot/usdc-usdt"},{"id":"bitstamp","name":"Bitstamp","kyc":true,"ask":null,"bid":0.99979,"feeRate":0.004,"withdrawFee":3.0,"withdrawNet":"multi","volume24":1753212.0,"url":"https://www.bitstamp.net","note":"cheapest major bid (USDC/USD)"},{"id":"cexio","name":"CEX.IO","kyc":true,"ask":1.00148,"bid":1.00148,"feeRate":0.0025,"withdrawFee":3.0,"withdrawNet":"multi","volume24":12504891.0,"url":"https://cex.io","note":"dearest major ask in sweep"},{"id":"yobit","name":"YoBit","kyc":false,"ask":0.9982,"bid":0.99355,"feeRate":0.002,"withdrawFee":5.0,"withdrawNet":"ERC20-only","volume24":105.0,"url":"https://yobit.net/en/trade/USDC_USDT","trap":true,"trapReason":"$5 flat ERC20 withdrawal on ~$50 depth; YoBit-USD non-withdrawable"},{"id":"coindcx-inr","name":"CoinDCX (INR)","kyc":"IN-CKYC","ask":100.41,"bid":99.86,"askVsFx":1.0677,"bidVsFx":1.0618,"feeRate":0.002,"tds":0.01,"volume24":2264000.0,"url":"https://coindcx.com","note":"structural +6.2% premium over FX 94.05; needs Indian KYC + offshore dollars"}],"gas":{"ethereum":3.0,"tron":1.0,"solana":0.05,"bsc":0.2},"margin":0.001}
+{
+ "asset": "USDC",
+ "quote": "USDT",
+ "updated": "2026-11-10T06:53:53.859Z",
+ "fx": {
+  "USDINR": 93.929192
+ },
+ "venues": [
+  {
+   "id": "nonkyc",
+   "name": "NonKYC.io",
+   "kyc": false,
+   "ask": 1.00123,
+   "bid": 0.9992,
+   "feeRate": 0.002,
+   "withdrawFee": 1,
+   "withdrawNet": "TRC20/SOL/BEP20",
+   "volume24": 2948671.18,
+   "url": "https://nonkyc.io/market/USDC_USDT"
+  },
+  {
+   "id": "binance",
+   "name": "Binance",
+   "kyc": true,
+   "ask": 1.00112,
+   "bid": 1.00112,
+   "feeRate": 0.001,
+   "withdrawFee": 2,
+   "withdrawNet": "multi",
+   "volume24": 1400934227,
+   "url": "https://www.binance.com/en/trade/USDC_USDT"
+  },
+  {
+   "id": "bybit",
+   "name": "Bybit",
+   "kyc": true,
+   "ask": 1.0011,
+   "bid": 1.0011,
+   "feeRate": 0.001,
+   "withdrawFee": 2,
+   "withdrawNet": "multi",
+   "volume24": 222683300,
+   "url": "https://www.bybit.com/trade/spot/USDC/USDT"
+  },
+  {
+   "id": "okx",
+   "name": "OKX",
+   "kyc": true,
+   "ask": 1.00111,
+   "bid": 1.00111,
+   "feeRate": 0.001,
+   "withdrawFee": 2,
+   "withdrawNet": "multi",
+   "volume24": 178411657,
+   "url": "https://www.okx.com/trade-spot/usdc-usdt"
+  },
+  {
+   "id": "bitstamp",
+   "name": "Bitstamp",
+   "kyc": true,
+   "ask": null,
+   "bid": 0.99979,
+   "feeRate": 0.004,
+   "withdrawFee": 3,
+   "withdrawNet": "multi",
+   "volume24": 1753212,
+   "url": "https://www.bitstamp.net",
+   "note": "cheapest major bid (USDC/USD)"
+  },
+  {
+   "id": "cexio",
+   "name": "CEX.IO",
+   "kyc": true,
+   "ask": 1.00148,
+   "bid": 1.00148,
+   "feeRate": 0.0025,
+   "withdrawFee": 3,
+   "withdrawNet": "multi",
+   "volume24": 12504891,
+   "url": "https://cex.io",
+   "note": "dearest major ask in sweep"
+  },
+  {
+   "id": "yobit",
+   "name": "YoBit",
+   "kyc": false,
+   "ask": 0.9982,
+   "bid": 0.99355,
+   "feeRate": 0.002,
+   "withdrawFee": 5,
+   "withdrawNet": "ERC20-only",
+   "volume24": 105,
+   "url": "https://yobit.net/en/trade/USDC_USDT",
+   "trap": true,
+   "trapReason": "$5 flat ERC20 withdrawal on ~$50 depth; YoBit-USD non-withdrawable"
+  },
+  {
+   "id": "coindcx-inr",
+   "name": "CoinDCX (INR)",
+   "kyc": "IN-CKYC",
+   "ask": 100.5,
+   "bid": 100.00001,
+   "askVsFx": 1.0699549081610327,
+   "bidVsFx": 1.0646318558771377,
+   "feeRate": 0.002,
+   "tds": 0.01,
+   "volume24": 2264000,
+   "url": "https://coindcx.com",
+   "note": "structural +6.2% premium over FX 94.05; needs Indian KYC + offshore dollars"
+  }
+ ],
+ "gas": {
+  "ethereum": 3,
+  "tron": 1,
+  "solana": 0.05,
+  "bsc": 0.2
+ },
+ "margin": 0.001
+}
