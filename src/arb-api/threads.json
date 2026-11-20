@@ -1,12 +1,44 @@
 {
- "updated": "2026-11-10T06:47:27.829Z",
- "source": "auto-refresh 2026-11-10T06:47Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
+ "updated": "2026-11-20T22:07:12.438Z",
+ "source": "auto-refresh 2026-11-20T22:07Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
  "gasAssumptions": {
   "bsc": 0.05,
   "note": "CEX withdrawal/network fees are NOT in nets - verify per-coin fee at execution; $1 NonKYC USDT flat alone is 20% at $5, 2% at $50, 1% at $100.",
   "solana": 0.01
  },
- "threads": [],
+ "threads": [
+  {
+   "id": "s-ix-nk",
+   "dir": "IX->NK",
+   "buy": "Icrypex S/USDT ask (book VWAP)",
+   "sell": "NonKYC S/USDT bid 0.028182",
+   "edgeBp": 304,
+   "edgeNote": "net of takers, ex-transfer",
+   "minGate": "250 S (~$9.30) Icrypex minWd - blocks $5",
+   "doors": {
+    "ixDeposit": true,
+    "ixWithdraw": true,
+    "nkDepositAssumedOpen": "UNVERIFIED"
+   },
+   "capUSD": 190,
+   "capNote": "5% of NonKYC book",
+   "transferFee": "UNKNOWN - verify Sonic-chain fee before sizing",
+   "sizes": {
+    "10": {
+     "in": 10,
+     "net": "+0.30"
+    },
+    "50": {
+     "in": 50,
+     "net": "+1.52"
+    },
+    "100": {
+     "in": 100,
+     "net": "+3.04"
+    }
+   }
+  }
+ ],
  "killedCount": 14,
  "excluded": {
   "fossils": [
@@ -35,7 +67,11 @@
    "s-ix-nk decayed to -3bp",
    "trump-kb-nk decayed to -99bp",
    "trump-dex-nk decayed to -59bp",
-   "crv-ix-nk decayed to -71bp"
+   "crv-ix-nk decayed to -71bp",
+   "RENDER IX->NK decayed to -242bp",
+   "TRUMP KB->NK decayed to -253bp",
+   "TRUMP DEX->NK decayed to -209bp",
+   "CRV IX->NK decayed to -30bp"
   ],
   "noExitMicros": [
    "Dex-Trade 11 micro-caps, no shared assets with any deep venue",
