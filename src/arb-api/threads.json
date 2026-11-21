@@ -1,12 +1,40 @@
 {
- "updated": "2026-11-21T12:42:54.631Z",
- "source": "auto-refresh 2026-11-21T12:42Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
+ "updated": "2026-11-21T20:33:46.724Z",
+ "source": "auto-refresh 2026-11-21T20:33Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
  "gasAssumptions": {
   "bsc": 0.05,
   "note": "CEX withdrawal/network fees are NOT in nets - verify per-coin fee at execution; $1 NonKYC USDT flat alone is 20% at $5, 2% at $50, 1% at $100.",
   "solana": 0.01
  },
- "threads": [],
+ "threads": [
+  {
+   "id": "crv-ix-nk",
+   "dir": "IX->NK",
+   "buy": "Icrypex CRV/USDT ask (book VWAP)",
+   "sell": "NonKYC CRV/USDT bid 0.17837",
+   "edgeBp": 16,
+   "edgeNote": "net of takers, ex-transfer",
+   "minGate": "195 CRV (~$51) Icrypex minWd - blocks $5-50",
+   "doors": {
+    "ixDeposit": true,
+    "ixWithdraw": true,
+    "nkDepositAssumedOpen": "UNVERIFIED"
+   },
+   "capUSD": 77,
+   "capNote": "5% of NonKYC book",
+   "transferFee": "UNKNOWN. Verify before sizing.",
+   "sizes": {
+    "50": {
+     "in": 50,
+     "net": "+0.08"
+    },
+    "100": {
+     "in": 100,
+     "net": "+0.16"
+    }
+   }
+  }
+ ],
  "killedCount": 14,
  "excluded": {
   "fossils": [
@@ -29,7 +57,6 @@
    "PYTH +35bp ticker dies under VWAP at $50 (avg 0.06598 vs 0.06506 top)"
   ],
   "decayed": [
-   "XRP NonKYC->KoinBX verified +18.6bp, now -104.5bp on refresh",
    "PYTH KB->NK +32bp ticker dies under VWAP (avg 0.06598 vs 0.06506 top)",
    "render-ix-nk decayed to -72bp",
    "s-ix-nk decayed to -3bp",
@@ -45,7 +72,11 @@
    "S IX->NK decayed to -302bp",
    "TRUMP KB->NK decayed to -187bp",
    "TRUMP DEX->NK decayed to -156bp",
-   "CRV IX->NK decayed to -239bp"
+   "CRV IX->NK decayed to -239bp",
+   "RENDER IX->NK decayed to -307bp",
+   "S IX->NK decayed to -226bp",
+   "TRUMP KB->NK decayed to -155bp",
+   "TRUMP DEX->NK decayed to -135bp"
   ],
   "noExitMicros": [
    "Dex-Trade 11 micro-caps, no shared assets with any deep venue",
