@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-20T22:07:12.438Z",
- "source": "auto-refresh 2026-11-20T22:07Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
+ "updated": "2026-11-21T03:15:25.385Z",
+ "source": "auto-refresh 2026-11-21T03:15Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
  "gasAssumptions": {
   "bsc": 0.05,
   "note": "CEX withdrawal/network fees are NOT in nets - verify per-coin fee at execution; $1 NonKYC USDT flat alone is 20% at $5, 2% at $50, 1% at $100.",
@@ -11,8 +11,8 @@
    "id": "s-ix-nk",
    "dir": "IX->NK",
    "buy": "Icrypex S/USDT ask (book VWAP)",
-   "sell": "NonKYC S/USDT bid 0.028182",
-   "edgeBp": 304,
+   "sell": "NonKYC S/USDT bid 0.028296",
+   "edgeBp": 500,
    "edgeNote": "net of takers, ex-transfer",
    "minGate": "250 S (~$9.30) Icrypex minWd - blocks $5",
    "doors": {
@@ -26,15 +26,99 @@
    "sizes": {
     "10": {
      "in": 10,
-     "net": "+0.30"
+     "net": "+0.50"
     },
     "50": {
      "in": 50,
-     "net": "+1.52"
+     "net": "+2.50"
     },
     "100": {
      "in": 100,
-     "net": "+3.04"
+     "net": "+5.00"
+    }
+   }
+  },
+  {
+   "id": "trump-kb-nk",
+   "dir": "KB->NK",
+   "buy": "KoinBX TRUMP/USDT ask (book VWAP)",
+   "sell": "NonKYC TRUMP/USDT bid 0.86549",
+   "edgeBp": 65,
+   "edgeNote": "net of 0.25% KoinBX taker + 0.2% NonKYC taker, ex-transfer",
+   "minGate": "8.87 TRUMP (~$9.90) KoinBX minWd - blocks $5",
+   "doors": {
+    "kbxDeposit": true,
+    "kbxWithdraw": true,
+    "nkDepositAssumedOpen": "UNVERIFIED - confirm before sizing"
+   },
+   "capUSD": 100,
+   "capNote": "VWAP holds to $100",
+   "transferFee": "UNKNOWN - TRUMP Solana transfer expected ~$0.01. Verify before sizing.",
+   "sizes": {
+    "50": {
+     "in": 50,
+     "net": "+0.33"
+    },
+    "100": {
+     "in": 100,
+     "net": "+0.61"
+    }
+   }
+  },
+  {
+   "id": "trump-dex-nk",
+   "dir": "DEX->NK",
+   "buy": "Solana DEX TRUMP/USDC ~0.8549474686 ($5.3M pool)",
+   "sell": "NonKYC TRUMP/USDT bid 0.86549",
+   "edgeBp": 73,
+   "edgeNote": "net of ~0.3% swap + $0.01 Solana gas x2 + 0.2% NonKYC taker; funds STAY on NonKYC (no $1 USDT withdrawal in stay-nets)",
+   "minGate": "none known - dust-friendly Solana side",
+   "doors": {
+    "nkDepositActive": true,
+    "nkDepositMin": "UNKNOWN - confirm dust acceptance before sizing"
+   },
+   "capUSD": 100,
+   "capNote": "pool impact <0.01% at $100",
+   "transferFee": "$0.01 Solana deposit, included in nets. $1 NonKYC USDT withdrawal shown separately.",
+   "sizes": {
+    "5": {
+     "stayNet": "+0.03",
+     "withdrawNet": "-0.97"
+    },
+    "50": {
+     "stayNet": "+0.35",
+     "withdrawNet": "-0.65"
+    },
+    "100": {
+     "stayNet": "+0.72",
+     "withdrawNet": "-0.28"
+    }
+   }
+  },
+  {
+   "id": "crv-ix-nk",
+   "dir": "IX->NK",
+   "buy": "Icrypex CRV/USDT ask (book VWAP)",
+   "sell": "NonKYC CRV/USDT bid 0.18283",
+   "edgeBp": 192,
+   "edgeNote": "net of takers, ex-transfer",
+   "minGate": "195 CRV (~$51) Icrypex minWd - blocks $5-50",
+   "doors": {
+    "ixDeposit": true,
+    "ixWithdraw": true,
+    "nkDepositAssumedOpen": "UNVERIFIED"
+   },
+   "capUSD": 77,
+   "capNote": "5% of NonKYC book",
+   "transferFee": "UNKNOWN. Verify before sizing.",
+   "sizes": {
+    "50": {
+     "in": 50,
+     "net": "+1.10"
+    },
+    "100": {
+     "in": 100,
+     "net": "+2.21"
     }
    }
   }
@@ -71,7 +155,8 @@
    "RENDER IX->NK decayed to -242bp",
    "TRUMP KB->NK decayed to -253bp",
    "TRUMP DEX->NK decayed to -209bp",
-   "CRV IX->NK decayed to -30bp"
+   "CRV IX->NK decayed to -30bp",
+   "RENDER IX->NK decayed to -144bp"
   ],
   "noExitMicros": [
    "Dex-Trade 11 micro-caps, no shared assets with any deep venue",
