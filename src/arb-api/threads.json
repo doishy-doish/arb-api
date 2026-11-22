@@ -1,6 +1,6 @@
 {
- "updated": "2026-11-22T09:56:12.470Z",
- "source": "auto-refresh 2026-11-22T09:56Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
+ "updated": "2026-11-22T17:52:04.477Z",
+ "source": "auto-refresh 2026-11-22T17:52Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
  "gasAssumptions": {
   "bsc": 0.05,
   "note": "CEX withdrawal/network fees are NOT in nets - verify per-coin fee at execution; $1 NonKYC USDT flat alone is 20% at $5, 2% at $50, 1% at $100.",
@@ -29,11 +29,6 @@
    "PYTH +35bp ticker dies under VWAP at $50 (avg 0.06598 vs 0.06506 top)"
   ],
   "decayed": [
-   "RENDER IX->NK decayed to -144bp",
-   "RENDER IX->NK decayed to -227bp",
-   "S IX->NK decayed to -302bp",
-   "TRUMP KB->NK decayed to -187bp",
-   "TRUMP DEX->NK decayed to -156bp",
    "CRV IX->NK decayed to -239bp",
    "RENDER IX->NK decayed to -307bp",
    "S IX->NK decayed to -226bp",
@@ -48,7 +43,12 @@
    "S IX->NK decayed to -219bp",
    "TRUMP KB->NK decayed to -307bp",
    "TRUMP DEX->NK decayed to -264bp",
-   "CRV IX->NK decayed to -245bp"
+   "CRV IX->NK decayed to -245bp",
+   "RENDER IX->NK decayed to -203bp",
+   "S IX->NK decayed to -91bp",
+   "TRUMP KB->NK decayed to -86bp",
+   "TRUMP DEX->NK decayed to -56bp",
+   "CRV IX->NK decayed to -48bp"
   ],
   "noExitMicros": [
    "Dex-Trade 11 micro-caps, no shared assets with any deep venue",
