@@ -1,70 +1,12 @@
 {
- "updated": "2026-11-22T23:38:21.572Z",
- "source": "auto-refresh 2026-11-22T23:38Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
+ "updated": "2026-11-23T07:45:26.658Z",
+ "source": "auto-refresh 2026-11-23T07:45Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
  "gasAssumptions": {
   "bsc": 0.05,
   "note": "CEX withdrawal/network fees are NOT in nets - verify per-coin fee at execution; $1 NonKYC USDT flat alone is 20% at $5, 2% at $50, 1% at $100.",
   "solana": 0.01
  },
- "threads": [
-  {
-   "id": "trump-kb-nk",
-   "dir": "KB->NK",
-   "buy": "KoinBX TRUMP/USDT ask (book VWAP)",
-   "sell": "NonKYC TRUMP/USDT bid 0.89434",
-   "edgeBp": 26,
-   "edgeNote": "net of 0.25% KoinBX taker + 0.2% NonKYC taker, ex-transfer",
-   "minGate": "8.87 TRUMP (~$9.90) KoinBX minWd - blocks $5",
-   "doors": {
-    "kbxDeposit": true,
-    "kbxWithdraw": true,
-    "nkDepositAssumedOpen": "UNVERIFIED - confirm before sizing"
-   },
-   "capUSD": 100,
-   "capNote": "VWAP holds to $100",
-   "transferFee": "UNKNOWN - TRUMP Solana transfer expected ~$0.01. Verify before sizing.",
-   "sizes": {
-    "50": {
-     "in": 50,
-     "net": "-0.07"
-    },
-    "100": {
-     "in": 100,
-     "net": "-0.28"
-    }
-   }
-  },
-  {
-   "id": "trump-dex-nk",
-   "dir": "DEX->NK",
-   "buy": "Solana DEX TRUMP/USDC ~0.8870834179 ($5.3M pool)",
-   "sell": "NonKYC TRUMP/USDT bid 0.89434",
-   "edgeBp": 31,
-   "edgeNote": "net of ~0.3% swap + $0.01 Solana gas x2 + 0.2% NonKYC taker; funds STAY on NonKYC (no $1 USDT withdrawal in stay-nets)",
-   "minGate": "none known - dust-friendly Solana side",
-   "doors": {
-    "nkDepositActive": true,
-    "nkDepositMin": "UNKNOWN - confirm dust acceptance before sizing"
-   },
-   "capUSD": 100,
-   "capNote": "pool impact <0.01% at $100",
-   "transferFee": "$0.01 Solana deposit, included in nets. $1 NonKYC USDT withdrawal shown separately.",
-   "sizes": {
-    "5": {
-     "stayNet": "+0.01",
-     "withdrawNet": "-0.99"
-    },
-    "50": {
-     "stayNet": "+0.15",
-     "withdrawNet": "-0.85"
-    },
-    "100": {
-     "stayNet": "+0.30",
-     "withdrawNet": "-0.70"
-    }
-   }
-  }
- ],
+ "threads": [],
  "killedCount": 14,
  "excluded": {
   "fossils": [
@@ -87,11 +29,6 @@
    "PYTH +35bp ticker dies under VWAP at $50 (avg 0.06598 vs 0.06506 top)"
   ],
   "decayed": [
-   "TRUMP KB->NK decayed to -155bp",
-   "TRUMP DEX->NK decayed to -135bp",
-   "RENDER IX->NK decayed to -324bp",
-   "S IX->NK decayed to -190bp",
-   "TRUMP KB->NK decayed to -295bp",
    "TRUMP DEX->NK decayed to -264bp",
    "CRV IX->NK decayed to -45bp",
    "RENDER IX->NK decayed to -230bp",
@@ -106,7 +43,12 @@
    "CRV IX->NK decayed to -48bp",
    "RENDER IX->NK decayed to -130bp",
    "S IX->NK decayed to -83bp",
-   "CRV IX->NK decayed to 6bp"
+   "CRV IX->NK decayed to 6bp",
+   "RENDER IX->NK decayed to -264bp",
+   "S IX->NK decayed to -185bp",
+   "TRUMP KB->NK decayed to -191bp",
+   "TRUMP DEX->NK decayed to -186bp",
+   "CRV IX->NK decayed to -225bp"
   ],
   "noExitMicros": [
    "Dex-Trade 11 micro-caps, no shared assets with any deep venue",
