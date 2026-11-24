@@ -1,7 +1,7 @@
 {
  "asset": "USDC",
  "quote": "USDT",
- "updated": "2026-11-24T06:05:52.453Z",
+ "updated": "2026-11-24T17:51:20.166Z",
  "fx": {
   "USDINR": 92.995018
  },
@@ -10,12 +10,12 @@
    "id": "nonkyc",
    "name": "NonKYC.io",
    "kyc": false,
-   "ask": 1.00034,
-   "bid": 1,
+   "ask": 1.00298,
+   "bid": 1.00001,
    "feeRate": 0.002,
    "withdrawFee": 1,
    "withdrawNet": "TRC20/SOL/BEP20",
-   "volume24": 18567381.57,
+   "volume24": 16120792.13,
    "url": "https://nonkyc.io/market/USDC_USDT"
   },
   {
@@ -27,31 +27,31 @@
    "feeRate": 0.001,
    "withdrawFee": 2,
    "withdrawNet": "multi",
-   "volume24": 2268188955,
+   "volume24": 1932480826,
    "url": "https://www.binance.com/en/trade/USDC_USDT"
   },
   {
    "id": "bybit",
    "name": "Bybit",
    "kyc": true,
-   "ask": 1.0011,
-   "bid": 1.0011,
+   "ask": 1.001,
+   "bid": 1.001,
    "feeRate": 0.001,
    "withdrawFee": 2,
    "withdrawNet": "multi",
-   "volume24": 329599431,
+   "volume24": 284210033,
    "url": "https://www.bybit.com/trade/spot/USDC/USDT"
   },
   {
    "id": "okx",
    "name": "OKX",
    "kyc": true,
-   "ask": 1.0011,
-   "bid": 1.0011,
+   "ask": 1.00108,
+   "bid": 1.00108,
    "feeRate": 0.001,
    "withdrawFee": 2,
    "withdrawNet": "multi",
-   "volume24": 268158332,
+   "volume24": 211115340,
    "url": "https://www.okx.com/trade-spot/usdc-usdt"
   },
   {
@@ -98,10 +98,10 @@
    "id": "coindcx-inr",
    "name": "CoinDCX (INR)",
    "kyc": "IN-CKYC",
-   "ask": 105.12313,
-   "bid": 104.54536,
-   "askVsFx": 1.1304167928651834,
-   "bidVsFx": 1.1242038793949156,
+   "ask": 105.04142,
+   "bid": 104.49855,
+   "askVsFx": 1.1295381436455014,
+   "bidVsFx": 1.1237005190966252,
    "feeRate": 0.002,
    "tds": 0.01,
    "volume24": 2264000,
