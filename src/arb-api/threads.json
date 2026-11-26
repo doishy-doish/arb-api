@@ -1,43 +1,12 @@
 {
- "updated": "2026-11-26T00:25:48.159Z",
- "source": "auto-refresh 2026-11-26T00:25Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
+ "updated": "2026-11-26T10:58:27.680Z",
+ "source": "auto-refresh 2026-11-26T10:58Z: NonKYC/KoinBX/Icrypex tickers + live books (IX RENDER/S/CRV, KB TRUMP) + Solana TRUMP pools; fail-closed on any fetch/parse error",
  "gasAssumptions": {
   "bsc": 0.05,
   "note": "CEX withdrawal/network fees are NOT in nets - verify per-coin fee at execution; $1 NonKYC USDT flat alone is 20% at $5, 2% at $50, 1% at $100.",
   "solana": 0.01
  },
- "threads": [
-  {
-   "id": "trump-dex-nk",
-   "dir": "DEX->NK",
-   "buy": "Solana DEX TRUMP/USDC ~0.8755797522 ($5.3M pool)",
-   "sell": "NonKYC TRUMP/USDT bid 0.88590",
-   "edgeBp": 67,
-   "edgeNote": "net of ~0.3% swap + $0.01 Solana gas x2 + 0.2% NonKYC taker; funds STAY on NonKYC (no $1 USDT withdrawal in stay-nets)",
-   "minGate": "none known - dust-friendly Solana side",
-   "doors": {
-    "nkDepositActive": true,
-    "nkDepositMin": "UNKNOWN - confirm dust acceptance before sizing"
-   },
-   "capUSD": 100,
-   "capNote": "pool impact <0.01% at $100",
-   "transferFee": "$0.01 Solana deposit, included in nets. $1 NonKYC USDT withdrawal shown separately.",
-   "sizes": {
-    "5": {
-     "stayNet": "+0.02",
-     "withdrawNet": "-0.98"
-    },
-    "50": {
-     "stayNet": "+0.33",
-     "withdrawNet": "-0.67"
-    },
-    "100": {
-     "stayNet": "+0.66",
-     "withdrawNet": "-0.34"
-    }
-   }
-  }
- ],
+ "threads": [],
  "killedCount": 14,
  "excluded": {
   "fossils": [
@@ -60,11 +29,6 @@
    "PYTH +35bp ticker dies under VWAP at $50 (avg 0.06598 vs 0.06506 top)"
   ],
   "decayed": [
-   "TRUMP KB->NK decayed to -12bp",
-   "TRUMP DEX->NK decayed to 7bp",
-   "CRV IX->NK decayed to -131bp",
-   "RENDER IX->NK decayed to -63bp",
-   "S IX->NK decayed to -151bp",
    "TRUMP KB->NK decayed to -59bp",
    "TRUMP DEX->NK decayed to -67bp",
    "CRV IX->NK decayed to -221bp",
@@ -79,7 +43,12 @@
    "RENDER IX->NK decayed to -215bp",
    "S IX->NK decayed to -157bp",
    "TRUMP KB->NK decayed to -179bp",
-   "CRV IX->NK decayed to -107bp"
+   "CRV IX->NK decayed to -107bp",
+   "RENDER IX->NK decayed to -151bp",
+   "S IX->NK decayed to -294bp",
+   "TRUMP KB->NK decayed to -30bp",
+   "TRUMP DEX->NK decayed to -43bp",
+   "CRV IX->NK decayed to -236bp"
   ],
   "noExitMicros": [
    "Dex-Trade 11 micro-caps, no shared assets with any deep venue",
